@@ -361,12 +361,25 @@ public abstract class Algorithm {
     /**
      * Verify the given token using this Algorithm instance.
      *
-     * @param jwt the already decoded JWT that it's going to be verified.
+     * @param jwt the already decoded JWT (urlEncoded) that it's going to be verified.
      * @throws SignatureVerificationException if the Token's Signature is invalid,
      *                                        meaning that it doesn't match the signatureBytes,
      *                                        or if the Key is invalid.
      */
-    public abstract void verify(DecodedJWT jwt) throws SignatureVerificationException;
+    public void verify(DecodedJWT jwt) throws SignatureVerificationException {
+        verify(jwt, true);
+    }
+
+    /**
+     * Verify the given token using this Algorithm instance.
+     *
+     * @param jwt the already decoded JWT that it's going to be verified.
+     * @param isUrlEncoded weather the JWT that it's going to be verified.
+     * @throws SignatureVerificationException if the Token's Signature is invalid,
+     *                                        meaning that it doesn't match the signatureBytes,
+     *                                        or if the Key is invalid.
+     */
+    public abstract void verify(DecodedJWT jwt, boolean isUrlEncoded) throws SignatureVerificationException;
 
     /**
      * Sign the given content using this Algorithm instance.
